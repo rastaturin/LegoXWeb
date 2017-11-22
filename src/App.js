@@ -33,7 +33,8 @@ class App extends Component {
           <Container>
               <Router>
                   <div>
-                      <Route path="/login" component={LoginPage}/>
+                      <Route path="/login/:key" component={LoginSession}/>
+                      <Route path="/login" exact component={LoginPage}/>
                       <Route path="/dashboard" component={DashboardPage}/>
                       <Route path="/profile" component={ProfilePage}/>
                       <Route path="/mysets" component={MySets}/>
@@ -341,6 +342,37 @@ class ProfilePage extends Component {
     }
 }
 
+class LoginSession extends Component {
+    constructor(props){
+        super(props);
+        getClient().saveToken(this.props.match.params.key);
+        window.location.href = '/mysets';
+    }
+
+    render() {
+        return (
+            <div></div>
+        )
+    }
+}
+
+class Logout extends Component {
+    logout() {
+        getClient().saveToken('');
+        window.location.href = '/';
+    }
+
+    render() {
+        if (getClient().getToken()) {
+            return (
+                <Button onClick={this.logout}>Logout</Button>
+            )
+        }
+
+        return (<a href={'/login'} className={"nav-link"}>Logout</a>);
+    }
+}
+
 class LoginPage extends Component {
     constructor(props){
         super(props);
@@ -353,7 +385,7 @@ class LoginPage extends Component {
     getStarted() {
         const self = this;
         getClient().login(this.state.email, function(result) {
-            window.location.href = '/dashboard';
+            self.setState({msg: 'Login link has been sent to your email.'});
         }, function(error) {
             self.setState({msg: error});
         })
@@ -470,9 +502,12 @@ function errorHandler(error) {
     if (error.response && error.response.status === 401) {
         window.location.href = '/login';
     } else {
-        console.error(error);
+        console.log(error);
     }
 }
 
 
-export default App;
+export {
+    App,
+    Logout
+};

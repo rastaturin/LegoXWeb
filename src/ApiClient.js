@@ -33,11 +33,9 @@ class RestClient {
         axios(request)
             .then(response => callback(null, response))
             .catch(error => {
-                console.log(error);
                 if (typeof callback === 'function') {
-                    callback('error')
+                    callback(error);
                 }
-                // callback(error.response.data.Message);
             });
     }
 }
