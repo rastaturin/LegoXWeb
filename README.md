@@ -1,8 +1,9 @@
 # Lego Exchanger
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+## Project
 
-Below you will find some information on how to perform common tasks.<br>
+https://lego-swap.com
+https://trello.com/b/njf5thPB/legoexchanger
 
 ## Start the app
 
@@ -13,6 +14,13 @@ npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Framework
+
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+Below you will find some information on how to perform common tasks.<br>
+
 
 ## Folder Structure
 
