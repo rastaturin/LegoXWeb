@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
 import LegoSet from './LegoSet';
 import Themes from './Themes';
 import CatalogHeader from './CatalogHeader';
@@ -10,6 +10,12 @@ const ApiClient = require('../ApiClient');
 const legorow = {
     display: 'flex',
     flexWrap: 'wrap',
+};
+
+const hr = {
+  height: '12px',
+  border: 0,
+  'box-shadow': 'inset 0 12px 12px -12px rgba(0, 0, 0, 0.5)'
 };
 
 export default class Catalog extends Component {
@@ -47,7 +53,27 @@ export default class Catalog extends Component {
 
             <div className="row">
               <div className="col-lg-3">
-                <Form inline>
+                <h4>Filters</h4>
+                <hr/>
+                  <Form>
+                    <FormGroup check>
+                      <legend>Category</legend>
+                      <Label check>
+                        <Input type="checkbox" />{' '}
+                        Boys
+                      </Label>
+                      <br/>
+                      <Label check>
+                        <Input type="checkbox" />{' '}
+                        Girls
+                      </Label>
+                      <br/>
+                      <Label check>
+                        <Input type="checkbox" />{' '}
+                        Adults
+                      </Label>
+                    </FormGroup>
+                    <br/>
                     <FormGroup>
                       <Input type="select" name="yearSelect" id="yearSelect" onChange={event => this.handleYear(event)}>
                           <option value={'0'}>All</option>
