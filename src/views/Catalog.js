@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, FormGroup, Input, Button } from 'reactstrap';
 import LegoSet from './LegoSet';
 import Themes from './Themes';
-import Jumbo from './Jumbo';
+import CatalogHeader from './CatalogHeader';
 
 const config = require('../config');
 const ApiClient = require('../ApiClient');
@@ -42,46 +42,52 @@ export default class Catalog extends Component {
 
     render() {
         return (
-            <div>
-                <Jumbo title={'Catalog'} text={'Chose the Lego sets you wish to buy or swap.'}/>
+          <div className="container-fluid">
+            <CatalogHeader title={'Catalog'} text={'Chose the Lego sets you wish to buy or swap.'}/>
 
+            <div className="row">
+              <div className="col-lg-3">
                 <Form inline>
                     <FormGroup>
-                        <Input type="select" name="yearSelect" id="yearSelect" onChange={event => this.handleYear(event)}>
-                            <option value={'0'}>All</option>
-                            <option selected={'selected'}>2017</option>
-                            <option>2016</option>
-                            <option>2015</option>
-                            <option>2014</option>
-                            <option>2013</option>
-                            <option>2012</option>
-                            <option>2011</option>
-                            <option>2010</option>
-                            <option>2009</option>
-                            <option>2008</option>
-                            <option>2007</option>
-                            <option>2006</option>
-                            <option>2005</option>
-                            <option>2004</option>
-                            <option>2003</option>
-                            <option>2002</option>
-                            <option>2001</option>
-                            <option>2000</option>
-                        </Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Themes onChange={event => this.handleTheme(event)}/>
-                    </FormGroup>
-                    <Button onClick={event => this.search(event)}>Search</Button>
+                      <Input type="select" name="yearSelect" id="yearSelect" onChange={event => this.handleYear(event)}>
+                          <option value={'0'}>All</option>
+                          <option selected={'selected'}>2017</option>
+                          <option>2016</option>
+                          <option>2015</option>
+                          <option>2014</option>
+                          <option>2013</option>
+                          <option>2012</option>
+                          <option>2011</option>
+                          <option>2010</option>
+                          <option>2009</option>
+                          <option>2008</option>
+                          <option>2007</option>
+                          <option>2006</option>
+                          <option>2005</option>
+                          <option>2004</option>
+                          <option>2003</option>
+                          <option>2002</option>
+                          <option>2001</option>
+                          <option>2000</option>
+                      </Input>
+                  </FormGroup>
+                  <FormGroup>
+                      <Themes onChange={event => this.handleTheme(event)}/>
+                  </FormGroup>
+                  <Button onClick={event => this.search(event)}>Search</Button>
                 </Form>
+              </div>
 
+              <div className="col-lg-9">
                 <div style={legorow}>
                 {this.state.sets.map(function(d, idx){
                     return (<LegoSet set={d} />)
                         })
                 }
                 </div>
+              </div>
             </div>
+          </div>
         )
     }
 }

@@ -16,7 +16,6 @@ const config = require('./config');
 const ApiClient = require('./ApiClient');
 
 class App extends Component {
-
     constructor(props){
         super(props);
         this.state={
@@ -36,7 +35,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <Container>
+          <div>
               <Router>
                   <div>
                       <Route path="/login/:key" component={LoginSession}/>
@@ -49,7 +48,7 @@ class App extends Component {
                   </div>
               </Router>
               {/*<Pages/>*/}
-          </Container>
+          </div>
       </div>
     );
   }
@@ -267,7 +266,7 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <Jumbo title={'Welcome to Lego Exchanger!'} text={'Please login using your email address.'}/>
 
                 <Row>
@@ -327,7 +326,7 @@ class MySets extends Component {
     render() {
         const self = this;
         return (
-            <div>
+            <div className="container">
                 <Jumbo title={'Your Lego'} text={'Chose your Lego sets'}/>
                 <Form inline>
                     <Input name={'key'} placeholder={'Key'} onChange={event => this.setState({key: event.target.value})}/>
