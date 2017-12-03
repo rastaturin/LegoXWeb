@@ -23,7 +23,7 @@ export default class Themes extends Component {
             <Input type="select" name="themeSelect" id="themeSelect" onChange={this.props.onChange}>
                 <option value={''}>Theme</option>
                 {this.state.themes.map(function(d, idx){
-                    return (<option value={d.key}>{d.name}</option>)
+                    return (<option key={idx} value={d.key}>{d.name}</option>)
                 })}
             </Input>
         )

@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import {
-    Button, Card, Form, FormGroup, Input, InputGroup, InputGroupAddon, InputGroupButton, Label,
-    Row, Table
-} from 'reactstrap';
+import { Button, Form, FormGroup, Input, InputGroup, InputGroupAddon, InputGroupButton, Label, Row, Table } from 'reactstrap';
 import {Route, BrowserRouter as Router} from "react-router-dom";
 import Catalog from './views/Catalog';
 import LegoSet from './views/LegoSet';
 import Themes from './views/Themes';
 import Jumbo from './views/Jumbo';
-
-
 
 const config = require('./config');
 const ApiClient = require('./ApiClient');

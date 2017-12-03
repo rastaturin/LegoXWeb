@@ -8,8 +8,7 @@ const elementStyle = {
 export default  class LegoSet extends Component {
     render() {
         return (
-            <div className={'col-sm-12 col-md-6 col-lg-4'} style={elementStyle}>
-            <Card>
+            <Card className={'col-sm-6 col-md-6 col-lg-4'} style={elementStyle}>
                 <img src={this.props.set.img}  className={'card-img-top'}/>
                 <div className="card-body">
                     <h4 className="card-title">{this.props.set.name}</h4>
@@ -18,7 +17,6 @@ export default  class LegoSet extends Component {
                     <p><a href={'/set/' + this.props.set.key}>Sales: {this.props.set.sales} from ${this.props.set.min}</a></p>
                 </div>
             </Card>
-            </div>
         )
     }
 }

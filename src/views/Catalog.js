@@ -3,6 +3,7 @@ import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
 import LegoSet from './LegoSet';
 import Themes from './Themes';
 import CatalogHeader from './CatalogHeader';
+import SetsPagination from './SetsPagination';
 
 const config = require('../config');
 const ApiClient = require('../ApiClient');
@@ -18,23 +19,35 @@ const hr = {
   'box-shadow': 'inset 0 12px 12px -12px rgba(0, 0, 0, 0.5)'
 };
 
+
+
+
 export default class Catalog extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             'sets': [],
+            'fullSets' : {},
+            'pageLength' : 1,
             'searchYear': 2017,
             'searchTheme': '',
         };
 
         this.search();
+        this.changePage = this.changePage.bind(this);
     }
 
     search(e) {
         getClient().getSets(this.state.searchTheme, this.state.searchYear, (result) => {
-            this.setState({'sets': result.sets});
-            console.log(result);
+            const sets = result.sets;
+            let pageLength = Math.ceil(sets.length / 12);
+            const fullSets = cutSets(pageLength, sets);
+            const defaultPageNum = 1;
+            this.setState({'sets': fullSets[defaultPageNum],
+                            'fullSets': fullSets,
+                            'pageLength': pageLength });
+            console.log(fullSets);
         })
     }
 
@@ -44,6 +57,11 @@ export default class Catalog extends Component {
 
     handleTheme(e) {
         this.setState({searchTheme: e.target.value});
+    }
+
+    changePage(activePage) {
+      const nextLegoSets = this.state.fullSets[activePage];
+      this.setState({'sets': nextLegoSets});
     }
 
     render() {
@@ -107,11 +125,15 @@ export default class Catalog extends Component {
               <div className="col-lg-9">
                 <div style={legorow}>
                 {this.state.sets.map(function(d, idx){
-                    return (<LegoSet set={d} />)
+                    return (<LegoSet key={idx} set={d} />)
                         })
                 }
                 </div>
               </div>
+            </div>
+
+            <div className="row">
+              <SetsPagination length={this.state.pageLength} onPageClick={this.changePage}/>
             </div>
           </div>
         )
@@ -132,4 +154,16 @@ function errorHandler(error) {
     } else {
         console.log(error);
     }
+}
+
+function cutSets(pageLength, sets){
+  let head = 0, end = 12;
+  let dividedSets = {};
+  for(let i=1; i<=pageLength; i++) {
+    let setsPerPage = sets.slice(head, end);
+    dividedSets[i] = setsPerPage;
+    head = end;
+    end = end + 12;
+  }
+  return dividedSets;
 }
