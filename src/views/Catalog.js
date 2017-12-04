@@ -4,6 +4,7 @@ import LegoSet from './LegoSet';
 import Themes from './Themes';
 import CatalogHeader from './CatalogHeader';
 import SetsPagination from './SetsPagination';
+import '../styles/Catalog.css';
 
 const config = require('../config');
 const ApiClient = require('../ApiClient');
@@ -18,9 +19,6 @@ const hr = {
   border: 0,
   'box-shadow': 'inset 0 12px 12px -12px rgba(0, 0, 0, 0.5)'
 };
-
-
-
 
 export default class Catalog extends Component {
 
@@ -40,6 +38,7 @@ export default class Catalog extends Component {
 
     search(e) {
         getClient().getSets(this.state.searchTheme, this.state.searchYear, (result) => {
+            console.log(result);
             const sets = result.sets;
             let pageLength = Math.ceil(sets.length / 12);
             const fullSets = cutSets(pageLength, sets);
@@ -66,12 +65,12 @@ export default class Catalog extends Component {
 
     render() {
         return (
-          <div className="container-fluid">
+          <div className="container-fluid catalogView">
             <CatalogHeader title={'Catalog'} text={'Chose the Lego sets you wish to buy or swap.'}/>
 
             <div className="row">
               <div className="col-lg-3">
-                <h4>Filters</h4>
+                <h3 className="filter-title">Filters</h3>
                 <hr/>
                   <Form>
                     <FormGroup check>
