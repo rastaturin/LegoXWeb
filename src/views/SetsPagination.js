@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import '../styles/SetsPagination.css';
 
 export default class SetsPagination extends React.Component {
 
@@ -11,17 +12,21 @@ export default class SetsPagination extends React.Component {
     }
 
     return (
-      <Pagination>
-        <PaginationItem>
-          <PaginationLink previous href="#" />
-        </PaginationItem>
-        {pageNumArr.map((page, idx) =>
-          <PageNumber key={idx} pageIndex={page} onPageClick={this.props.onPageClick} />
-          )}
-        <PaginationItem>
-          <PaginationLink next href="#" />
-        </PaginationItem>
-      </Pagination>
+      <div className="col">
+        <div className="float-right">
+          <Pagination className="pagers">
+            <PaginationItem>
+              <PaginationLink previous href="#" />
+            </PaginationItem>
+            {pageNumArr.map((page, idx) =>
+              <PageNumber key={idx} pageIndex={page} onPageClick={this.props.onPageClick} />
+              )}
+            <PaginationItem>
+              <PaginationLink next href="#" />
+            </PaginationItem>
+          </Pagination>
+        </div>
+      </div>
     );
   }
 }
