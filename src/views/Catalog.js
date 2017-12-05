@@ -30,6 +30,7 @@ export default class Catalog extends Component {
             'pageLength' : 1,
             'searchYear': 2017,
             'searchTheme': '',
+            'activePage' : 1
         };
 
         this.search();
@@ -42,7 +43,7 @@ export default class Catalog extends Component {
             const sets = result.sets;
             let pageLength = Math.ceil(sets.length / 12);
             const fullSets = cutSets(pageLength, sets);
-            const defaultPageNum = 1;
+            const defaultPageNum = this.state.activePage;
             this.setState({'sets': fullSets[defaultPageNum],
                             'fullSets': fullSets,
                             'pageLength': pageLength });
@@ -60,7 +61,8 @@ export default class Catalog extends Component {
 
     changePage(activePage) {
       const nextLegoSets = this.state.fullSets[activePage];
-      this.setState({'sets': nextLegoSets});
+      this.setState({'sets': nextLegoSets,
+                     'activePage': activePage });
     }
 
     render() {
@@ -132,7 +134,7 @@ export default class Catalog extends Component {
             </div>
 
             <div className="row">
-              <SetsPagination length={this.state.pageLength} onPageClick={this.changePage}/>
+              <SetsPagination length={this.state.pageLength} onPageClick={this.changePage} activePageNum={this.state.activePage} />
             </div>
           </div>
         )

@@ -4,6 +4,12 @@ import '../styles/SetsPagination.css';
 
 export default class SetsPagination extends React.Component {
 
+  checkPrevious() {
+    console.log('hey');
+    if(this.props.activePageNum === 1) return 'disabled';
+    else return '';
+  }
+
   render() {
     const totalPages = this.props.length;
     const pageNumArr = [];
@@ -15,11 +21,11 @@ export default class SetsPagination extends React.Component {
       <div className="col">
         <div className="float-right">
           <Pagination className="pagers">
-            <PaginationItem>
+            <PaginationItem className={this.checkPrevious()}>
               <PaginationLink previous href="#" />
             </PaginationItem>
             {pageNumArr.map((page, idx) =>
-              <PageNumber key={idx} pageIndex={page} onPageClick={this.props.onPageClick} />
+              <PageNumber key={idx} pageIndex={page} onPageClick={this.props.onPageClick} activePageNum={this.props.activePageNum} />
               )}
             <PaginationItem>
               <PaginationLink next href="#" />
@@ -37,9 +43,16 @@ class PageNumber extends React.Component {
     this.props.onPageClick(this.props.pageIndex);
   }
 
+  //TODO: should only call one time
+  checkActivePage() {
+    console.log('Active Page: ' + this.props.activePageNum);
+    if (this.props.pageIndex === this.props.activePageNum) return 'active';
+    else return '';
+  }
+
   render() {
     return (
-      <PaginationItem>
+      <PaginationItem className={this.checkActivePage()}>
         <PaginationLink href="#" onClick={this.handleClick}>
           {this.props.pageIndex}
         </PaginationLink>
