@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
-import {
-    Button, Card, Container, Form, FormGroup, Input, InputGroup, InputGroupAddon, InputGroupButton, Label,
-    Row, Table
-} from 'reactstrap';
+import { Button, Form, FormGroup, Input, InputGroup, InputGroupAddon, InputGroupButton, Label, Row, Table } from 'reactstrap';
 import {Route, BrowserRouter as Router} from "react-router-dom";
+import Catalog from './views/Catalog';
+import LegoSet from './views/LegoSet';
+import Themes from './views/Themes';
+import Jumbo from './views/Jumbo';
 
 const config = require('./config');
 const ApiClient = require('./ApiClient');
 
 class App extends Component {
-
     constructor(props){
         super(props);
         this.state={
@@ -30,7 +30,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <Container>
+          <div>
               <Router>
                   <div>
                       <Route path="/login/:key" component={LoginSession}/>
@@ -43,7 +43,7 @@ class App extends Component {
                   </div>
               </Router>
               {/*<Pages/>*/}
-          </Container>
+          </div>
       </div>
     );
   }
@@ -106,58 +106,11 @@ class SetSale extends Component {
     }
 }
 
-const elementStyle = {
-    padding: '8px'
-};
 
 const legorow = {
     display: 'flex',
     flexWrap: 'wrap',
 };
-
-class LegoSet extends Component {
-    render() {
-        return (
-            <div className={'col-sm-12 col-md-6 col-lg-4'} style={elementStyle}>
-            <Card >
-                <img src={this.props.set.img}  className={'card-img-top'}/>
-                <div className="card-body">
-                    <h4 className="card-title">{this.props.set.name}</h4>
-                    <p>{this.props.set.theme_name.name} ({this.props.set.year})</p>
-                    <p>ID: {this.props.set.key}</p>
-                    <p><a href={'/set/' + this.props.set.key}>Sales: {this.props.set.sales} from ${this.props.set.min}</a></p>
-                </div>
-            </Card>
-            </div>
-        )
-    }
-}
-
-class Themes extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            'themes': []
-        };
-
-        getClient().getThemes((result) => {
-            this.setState({'themes': result.themes});
-            console.log(result);
-        })
-    }
-
-    render() {
-        return (
-            <Input type="select" name="themeSelect" id="themeSelect" onChange={this.props.onChange}>
-                <option value={''}>Theme</option>
-                {this.state.themes.map(function(d, idx){
-                    return (<option value={d.key}>{d.name}</option>)
-                })}
-            </Input>
-        )
-    }
-}
 
 class Sale extends Component {
 
@@ -202,79 +155,7 @@ class Sale extends Component {
     }
 }
 
-class Catalog extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            'sets': [],
-            'searchYear': 2017,
-            'searchTheme': '',
-        };
-
-        this.search();
-    }
-
-    search(e) {
-        getClient().getSets(this.state.searchTheme, this.state.searchYear, (result) => {
-            this.setState({'sets': result.sets});
-            console.log(result);
-        })
-    }
-
-    handleYear(e) {
-        this.setState({searchYear: e.target.value});
-    }
-
-    handleTheme(e) {
-        this.setState({searchTheme: e.target.value});
-    }
-
-    render() {
-        return (
-            <div>
-                <Jumbo title={'Catalog'} text={'Chose the Lego sets you wish to buy or swap.'}/>
-
-                <Form inline>
-                    <FormGroup>
-                        <Input type="select" name="yearSelect" id="yearSelect" onChange={event => this.handleYear(event)}>
-                            <option value={'0'}>All</option>
-                            <option selected={'selected'}>2017</option>
-                            <option>2016</option>
-                            <option>2015</option>
-                            <option>2014</option>
-                            <option>2013</option>
-                            <option>2012</option>
-                            <option>2011</option>
-                            <option>2010</option>
-                            <option>2009</option>
-                            <option>2008</option>
-                            <option>2007</option>
-                            <option>2006</option>
-                            <option>2005</option>
-                            <option>2004</option>
-                            <option>2003</option>
-                            <option>2002</option>
-                            <option>2001</option>
-                            <option>2000</option>
-                        </Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Themes onChange={event => this.handleTheme(event)}/>
-                    </FormGroup>
-                    <Button onClick={event => this.search(event)}>Search</Button>
-                </Form>
-
-                <div style={legorow}>
-                {this.state.sets.map(function(d, idx){
-                    return (<LegoSet set={d} />)
-                        })
-                }
-                </div>
-            </div>
-        )
-    }
-}
 
 class DashboardPage extends Component {
     constructor(props){
@@ -289,19 +170,6 @@ class DashboardPage extends Component {
             <duv>
                 <Jumbo title={'Dashboard'}/>
             </duv>
-        )
-    }
-}
-
-class Jumbo extends Component {
-    render() {
-        return (
-        <div className="jumbotron">
-            <div className="container">
-                <h1 className="display-3">{this.props.title}</h1>
-                <p>{this.props.text}</p>
-            </div>
-        </div>
         )
     }
 }
@@ -393,7 +261,7 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <Jumbo title={'Welcome to Lego Exchanger!'} text={'Please login using your email address.'}/>
 
                 <Row>
@@ -453,7 +321,7 @@ class MySets extends Component {
     render() {
         const self = this;
         return (
-            <div>
+            <div className="container">
                 <Jumbo title={'Your Lego'} text={'Chose your Lego sets'}/>
                 <Form inline>
                     <Input name={'key'} placeholder={'Key'} onChange={event => this.setState({key: event.target.value})}/>

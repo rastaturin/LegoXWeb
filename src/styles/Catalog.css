@@ -1,0 +1,15 @@
+.catalogView {
+  padding: 0px 90px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .catalogView {
+      padding: 0px 30px;
+    }
+}
+
+.filter-title {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 600;
+}

@@ -10,6 +10,7 @@ https://trello.com/b/njf5thPB/legoexchanger
 ```sh
 git clone https://github.com/rastaturin/LegoXWeb
 cd LegoXWeb
+npm install
 npm start
 ```
 
