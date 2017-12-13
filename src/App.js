@@ -6,6 +6,7 @@ import { Route,
          BrowserRouter as Router } from "react-router-dom";
 import Catalog from './views/Catalog';
 import LegoSet from './views/LegoSet';
+import SetSale from './views/SetSale';
 import Themes from './views/Themes';
 import Jumbo from './views/Jumbo';
 import Navigation from './views/Navigation';
@@ -35,7 +36,7 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
+      <div>
               <Router>
                 <div>
                   <Navigation />
@@ -71,47 +72,6 @@ class Home extends Component {
         return (
             <div>
                 <h2>Home</h2>
-            </div>
-        )
-    }
-}
-
-class SetSale extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            set: {
-                sales:[]
-            }
-        };
-
-        getClient().getSet(this.props.match.params.key, (result) => {
-            this.setState({'set': result.set});
-            console.log(result);
-        })
-    }
-
-    render() {
-        return (
-            <div>
-                <Jumbo title={this.state.set.name} text={'ID: ' + this.props.match.params.key}/>
-                <img src={this.state.set.img}/>
-                <h2>Sales</h2>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.set.sales.map(function(d, idx){
-                        return (<tr><td>{d.user}</td><td>${d.price}</td></tr>)
-                    })}
-                    </tbody>
-                </Table>
-
             </div>
         )
     }
