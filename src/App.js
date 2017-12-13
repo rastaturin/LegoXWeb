@@ -9,6 +9,7 @@ import LegoSet from './views/LegoSet';
 import SetSale from './views/SetSale';
 import Themes from './views/Themes';
 import Jumbo from './views/Jumbo';
+import Profile from './views/Profile';
 import Navigation from './views/Navigation';
 import Footer from './views/Footer';
 import NoMatch from './views/404';
@@ -40,20 +41,19 @@ class App extends Component {
               <Router>
                 <div>
                   <Navigation />
-                  <div>
-                    <Switch>
-                        <Route path="/login/:key" component={LoginSession}/>
-                        <Route path="/login" exact component={LoginPage}/>
-                        <Route path="/dashboard" component={DashboardPage}/>
-                        <Route path="/profile" component={ProfilePage}/>
-                        <Route path="/mysets" component={MySets}/>
-                        <Route path="/set/:key" component={SetSale}/>
-                        <Route path="/" exact component={Catalog}/>
-                        <Route component={NoMatch} />
-                      </Switch>
-                  </div>
 
+                  <Switch>
+                      <Route path="/login/:key" component={LoginSession}/>
+                      <Route path="/login" exact component={LoginPage}/>
+                      <Route path="/dashboard" component={DashboardPage}/>
+                      <Route path="/profile" component={Profile}/>
+                      <Route path="/mysets" component={MySets}/>
+                      <Route path="/set/:key" component={SetSale}/>
+                      <Route path="/" exact component={Catalog}/>
+                      <Route component={NoMatch} />
+                    </Switch>
                   <Footer />
+
                 </div>
               </Router>
       </div>
@@ -141,42 +141,6 @@ class DashboardPage extends Component {
             <duv>
                 <Jumbo title={'Dashboard'}/>
             </duv>
-        )
-    }
-}
-
-class ProfilePage extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            email:'',
-        };
-    }
-
-    render() {
-        return (
-            <div>
-                <Jumbo title={'Your Profile'} text={'Enter your data.'}/>
-                <Row>
-                <Form>
-                    <FormGroup>
-                        <Label for="name">Email</Label>
-                        <Input name="name" id="name" placeholder="Name" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Birthday">Birthday</Label>
-                        <Input name="Birthday" id="Birthday" placeholder="Birthday" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Address">Address</Label>
-                        <Input name="Address" id="Address" placeholder="Address" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Button >Submit</Button>
-                    </FormGroup>
-                </Form>
-                </Row>
-            </div>
         )
     }
 }
