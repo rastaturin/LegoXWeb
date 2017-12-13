@@ -14,7 +14,11 @@
   font-weight: 600;
 }
 
-// loading icon only show when div is empty
+.legorow {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .loader:empty {
   width: 10em;
   height: 10em;

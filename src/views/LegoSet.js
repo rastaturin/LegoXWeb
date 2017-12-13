@@ -5,8 +5,8 @@ import '../styles/LegoSet.css';
 import classnames from 'classnames';
 
 export default  class LegoSet extends Component {
-
     render() {
+
       const {classes, children} = this.props;
       return (
           <Card className={classnames('col-sm-6 col-md-6 col-lg-4', 'legoCard')}>

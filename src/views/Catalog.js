@@ -9,11 +9,6 @@ import '../styles/Catalog.css';
 const config = require('../config');
 const ApiClient = require('../ApiClient');
 
-const legorow = {
-    display: 'flex',
-    flexWrap: 'wrap',
-};
-
 const hr = {
   height: '12px',
   border: 0,
@@ -65,6 +60,8 @@ export default class Catalog extends Component {
     }
 
     render() {
+      let isLoadingSets = this.state.sets.length === 0 ? true : false;
+
       return (
         <div className="container-fluid catalogView">
           <CatalogHeader title={'Catalog'} text={'Chose the Lego sets you wish to buy or swap.'}/>
@@ -123,10 +120,12 @@ export default class Catalog extends Component {
             </div>
 
             <div className="col-lg-9">
-              <div style={legorow} className="loader">
-              {this.state.sets.map(function(d, idx){
+              <div className="legorow">
+              {isLoadingSets ? (
+                <div className="loader"></div>
+                ) : (this.state.sets.map(function(d, idx){
                   return (<LegoSet key={idx} set={d} />)
-                      })
+                  }))
               }
               </div>
             </div>
