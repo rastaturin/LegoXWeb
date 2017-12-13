@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Card } from 'reactstrap';
-
-const elementStyle = {
-    padding: '8px'
-};
+import useSheet from 'react-jss';
+import '../styles/LegoSet.css';
+import classnames from 'classnames';
 
 export default  class LegoSet extends Component {
     render() {
+        const {classes, children} = this.props;
         return (
-            <Card className={'col-sm-6 col-md-6 col-lg-4'} style={elementStyle}>
+            <Card className={classnames('col-sm-6 col-md-6 col-lg-4', 'legoCard')}>
                 <img src={this.props.set.img}  className={'card-img-top'}/>
                 <div className="card-body">
                     <h4 className="card-title">{this.props.set.name}</h4>
