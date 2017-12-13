@@ -19,7 +19,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state={
-            email:'',
+            email:''
         };
         console.log(this.state);
     }
@@ -33,6 +33,7 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <div className="App">
               <Router>
