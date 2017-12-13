@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Button, Form, FormGroup, Input, InputGroup, InputGroupAddon, InputGroupButton, Label, Row, Table } from 'reactstrap';
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route,
+         Switch,
+         BrowserRouter as Router } from "react-router-dom";
 import Catalog from './views/Catalog';
 import LegoSet from './views/LegoSet';
 import Themes from './views/Themes';
 import Jumbo from './views/Jumbo';
 import Navigation from './views/Navigation';
 import Footer from './views/Footer';
+import NoMatch from './views/404';
 
 const config = require('./config');
 const ApiClient = require('./ApiClient');
@@ -36,13 +39,16 @@ class App extends Component {
                 <div>
                   <Navigation />
                   <div>
-                      <Route path="/login/:key" component={LoginSession}/>
-                      <Route path="/login" exact component={LoginPage}/>
-                      <Route path="/dashboard" component={DashboardPage}/>
-                      <Route path="/profile" component={ProfilePage}/>
-                      <Route path="/mysets" component={MySets}/>
-                      <Route path="/set/:key" component={SetSale}/>
-                      <Route path="/" exact component={Catalog}/>
+                    <Switch>
+                        <Route path="/login/:key" component={LoginSession}/>
+                        <Route path="/login" exact component={LoginPage}/>
+                        <Route path="/dashboard" component={DashboardPage}/>
+                        <Route path="/profile" component={ProfilePage}/>
+                        <Route path="/mysets" component={MySets}/>
+                        <Route path="/set/:key" component={SetSale}/>
+                        <Route path="/" exact component={Catalog}/>
+                        <Route component={NoMatch} />
+                      </Switch>
                   </div>
 
                   <Footer />

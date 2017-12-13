@@ -39,7 +39,6 @@ export default class Catalog extends Component {
 
     search(e) {
         getClient().getSets(this.state.searchTheme, this.state.searchYear, (result) => {
-            console.log(result);
             const sets = result.sets;
             let pageLength = Math.ceil(sets.length / 12);
             const fullSets = cutSets(pageLength, sets);
@@ -66,6 +65,7 @@ export default class Catalog extends Component {
     }
 
     render() {
+      console.log(this.props.match.url);
         return (
           <div className="container-fluid catalogView">
             <CatalogHeader title={'Catalog'} text={'Chose the Lego sets you wish to buy or swap.'}/>
