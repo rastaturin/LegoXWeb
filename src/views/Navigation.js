@@ -5,7 +5,6 @@ export default class Navigation extends Component {
 
   render() {
     return (
-      <div>
       <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
           <a className="navbar-brand" href="/">Lego Exchanger</a>
           <Button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +28,6 @@ export default class Navigation extends Component {
             </Form>
           </div>
       </nav>
-      </div>
       )
   }
 

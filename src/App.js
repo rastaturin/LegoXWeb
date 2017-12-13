@@ -7,6 +7,7 @@ import LegoSet from './views/LegoSet';
 import Themes from './views/Themes';
 import Jumbo from './views/Jumbo';
 import Navigation from './views/Navigation';
+import Footer from './views/Footer';
 
 const config = require('./config');
 const ApiClient = require('./ApiClient');
@@ -43,6 +44,8 @@ class App extends Component {
                       <Route path="/set/:key" component={SetSale}/>
                       <Route path="/" exact component={Catalog}/>
                   </div>
+
+                  <Footer />
                 </div>
               </Router>
       </div>
