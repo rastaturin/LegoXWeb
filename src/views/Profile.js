@@ -6,31 +6,60 @@ import '../styles/Profile.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-// import classnames from 'classnames';
+import face01 from '../images/profile-icons/face01.png';
+import face02 from '../images/profile-icons/face02.png';
+import face03 from '../images/profile-icons/face03.png';
+import classnames from 'classnames';
+
+class PrevArrow extends React.Component {
+  render() {
+    return (
+      <p onClick={this.props.onClick}>
+        <a href="" className={classnames('arrow', this.props.pos)}></a>
+      </p>
+    );
+  }
+}
 
 export default class Profile extends Component {
+
+  constructor(props) {
+    super(props)
+    this.next = this.next.bind(this)
+    this.previous = this.previous.bind(this)
+  }
+
+  next() {
+    this.slider.slickNext()
+  }
+  previous() {
+    this.slider.slickPrev()
+  }
+
   render() {
     // const {classes, children} = this.props;
     const settings = {
       dots: true,
       infinite: true,
       speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToShow: 2,
+      slidesToScroll: 1,
+      prevArrow: <PrevArrow pos="left" onClick={this.previous} />,
+      nextArrow: <PrevArrow pos="right" onClick={this.next} />,
+      responsive: [ { breakpoint: 768, settings: { slidesToShow: 1 } } ],
+      centerMode: true,
+      className: 'robot-face'
     };
 
     return (
       <div className="container profile-view">
         <Jumbo title={'Your Profile'} text={'Enter your data.'}/>
-        <Slider {...settings}>
-          <div><h3>1</h3></div>
-          <div><h3>2</h3></div>
-          <div><h3>3</h3></div>
-          <div><h3>4</h3></div>
-          <div><h3>5</h3></div>
-          <div><h3>6</h3></div>
+        <Slider ref={c => this.slider = c } {...settings}>
+          <div><img src={face01} alt="Deafult Pic" /></div>
+          <div><img src={face02} alt="Deafult Pic" /></div>
+          <div><img src={face03} alt="Deafult Pic" /></div>
         </Slider>
-        <Form>
+        <Form className="profile-form">
           <FormGroup>
             <Label for="exampleEmail">Email</Label>
             <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
@@ -47,3 +76,4 @@ export default class Profile extends Component {
     )
   }
 }
+
