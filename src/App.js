@@ -187,40 +187,67 @@ class LoginPage extends Component {
 
     getStarted() {
         const self = this;
-        getClient().login(this.state.email, function(result) {
-            self.setState({msg: 'Login link has been sent to your email.'});
+        getClient().login(this.state.email, this.state.password, function(result) {
+            self.setState({msg: 'Login successfully'});
         }, function(error) {
-            self.setState({msg: error});
+            self.setState({msg: 'Login failed'});
+        })
+    }
+
+    getRegistered() {
+        const self = this;
+        getClient().register(this.state.email, this.state.password, function (result) {
+            self.setState({msg: 'Register successfully'});
+        }, function(error) {
+            self.setState({msg: 'Register failed'});
         })
     }
 
     render() {
         return (
-            <div className="container">
-                <Jumbo title={'Welcome to Lego Exchanger!'} text={'Please login using your email address.'}/>
-
-                <Row>
-                <h3 className="display-4">
-                    Enter your email
-                </h3>
-            </Row>
-                <Row>
-                <p>
-                    Login link will be sent to your email.
-                </p>
-            </Row>
-            <Row>
-                <Form>
-                    <FormGroup>
-                        <InputGroup>
-                            <Input placeholder="Enter Email" onChange={event => this.setState({email: event.target.value})} />
-                            <InputGroupButton><Button color="secondary" onClick={event => this.getStarted(event)}>Get login link</Button></InputGroupButton>
-                        </InputGroup>
-                    </FormGroup>
-                </Form>
-            </Row>
-                <p>{this.state.msg}</p>
-            </div>
+            <div>
+                <div>
+                    <Jumbo title={'Welcome to Lego Exchanger!'} text={'Please login using your email address.'}/>
+                </div>
+                <div className="container">
+                    <Row>
+                        <div className="col-lg" />
+                        <div className="col-lg">
+                            <h3 className="display-4">
+                                LOGIN
+                            </h3>
+                        </div>
+                        <div className="col-lg" />
+                    </Row>
+                    <Row>
+                        <div className="col-lg" />
+                        <div className="col-lg">
+                            <Form>
+                                <FormGroup>
+                                    <InputGroup>
+                                        <span className="input-group-addon">Email</span>
+                                        <Input placeholder="Enter Email" onChange={event => this.setState({email: event.target.value})} />
+                                    </InputGroup>
+                                </FormGroup>
+                                <FormGroup>
+                                    <InputGroup>
+                                        <span className="input-group-addon">Password</span>
+                                        <Input placeholder="Enter Password" onChange={event => this.setState({password: event.target.value})} />
+                                    </InputGroup>
+                                </FormGroup>
+                                <FormGroup>
+                                    <div className="btn-group">
+                                        <Button color="primary" onClick={event => this.getStarted(event)}>Login</Button>
+                                        <Button color="success" onClick={event => this.getRegistered(event)}>Register</Button>
+                                    </div>
+                                </FormGroup>
+                            </Form>
+                        </div>
+                        <div className="col-lg" />
+                    </Row>
+                    <p>{this.state.msg}</p>
+                </div>
+                </div>
         );
     }
 }
