@@ -24,9 +24,10 @@ export default class SetSale extends Component {
 
     render() {
         return (
-            <div className="setSaleView">
-                <Jumbo title={this.state.set.name} text={'ID: ' + this.props.match.params.key}/>
-                <img src={this.state.set.img}/>
+            <div>
+              <Jumbo title={this.state.set.name} text={'ID: ' + this.props.match.params.key} />
+              <div className="setSaleView">
+                <img src={this.state.set.img} alt="Set" />
                 <h2>Sales</h2>
                 <Table>
                     <thead>
@@ -41,7 +42,7 @@ export default class SetSale extends Component {
                     })}
                     </tbody>
                 </Table>
-
+              </div>
             </div>
         )
     }
