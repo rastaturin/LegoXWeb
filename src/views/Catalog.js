@@ -113,7 +113,7 @@ export default class Catalog extends Component {
             </div>
           </div>
 
-          <div className="row">
+          <div className="row catalogView">
             <SetsPagination length={this.state.pageLength} onPageClick={this.changePage} activePageNum={this.state.activePage} />
           </div>
         </div>
