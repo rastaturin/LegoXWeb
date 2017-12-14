@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Input, Button, Label } from 'reactstrap';
+import { Form, FormGroup, Input, Button } from 'reactstrap';
 import LegoSet from './LegoSet';
 import Themes from './Themes';
 import CatalogHeader from './CatalogHeader';
@@ -63,32 +63,14 @@ export default class Catalog extends Component {
       let isLoadingSets = this.state.sets.length === 0 ? true : false;
 
       return (
-        <div className="container-fluid catalogView">
+        <div className="container-fluid">
           <CatalogHeader title={'Catalog'} text={'Chose the Lego sets you wish to buy or swap.'}/>
 
-          <div className="row">
+          <div className="row catalogView">
             <div className="col-lg-3">
               <h3 className="filter-title">Filters</h3>
               <hr/>
                 <Form>
-                  <FormGroup check>
-                    <legend>Category</legend>
-                    <Label check>
-                      <Input type="checkbox" />{' '}
-                      Boys
-                    </Label>
-                    <br/>
-                    <Label check>
-                      <Input type="checkbox" />{' '}
-                      Girls
-                    </Label>
-                    <br/>
-                    <Label check>
-                      <Input type="checkbox" />{' '}
-                      Adults
-                    </Label>
-                  </FormGroup>
-                  <br/>
                   <FormGroup>
                     <Input type="select" name="yearSelect" id="yearSelect" onChange={event => this.handleYear(event)}>
                         <option value={'0'}>All</option>
