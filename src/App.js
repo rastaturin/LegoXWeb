@@ -162,11 +162,12 @@ class LoginSession extends Component {
 class Logout extends Component {
     logout() {
         getClient().saveToken('');
+        getClient().saveEmail('');
         window.location.href = '/';
     }
 
     render() {
-        if (getClient().getToken()) {
+        if (getClient().getToken() != undefined && getClient().getToken() != '') {
             return (
                 <Button onClick={this.logout}>Logout</Button>
             )
