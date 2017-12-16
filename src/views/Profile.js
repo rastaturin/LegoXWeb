@@ -11,6 +11,10 @@ import face02 from '../images/profile-icons/face02.png';
 import face03 from '../images/profile-icons/face03.png';
 import classnames from 'classnames';
 
+const config = require('../config');
+const ApiClient = require('../ApiClient');
+
+
 class PrevArrow extends React.Component {
   render() {
     return (
@@ -76,3 +80,19 @@ export default class Profile extends Component {
   }
 }
 
+
+/**
+ * @returns {ApiClient}
+ */
+function getClient() {
+    const apiBaseUrl = config.api_fred;
+    return new ApiClient(apiBaseUrl, errorHandler);
+}
+
+function errorHandler(error) {
+    if (error.response && error.response.status === 401) {
+        window.location.href = '/login';
+    } else {
+        console.log(error);
+    }
+}
