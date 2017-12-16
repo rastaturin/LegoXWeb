@@ -325,7 +325,7 @@ class MySets extends Component {
  * @returns {ApiClient}
  */
 function getClient() {
-    const apiBaseUrl = config.api_host;
+    const apiBaseUrl = config.api_fred;
     return new ApiClient(apiBaseUrl, errorHandler);
 }
 
