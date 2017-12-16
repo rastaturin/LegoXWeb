@@ -52,6 +52,7 @@ class ApiClient {
                 return error(err);
             }
             this.saveToken(response.data._code);
+            this.saveEmail(response.data.email);
             if(response.data.status == 0)
                 success(response);
             else
@@ -123,12 +124,21 @@ class ApiClient {
         return localStorage.setItem('token', token);
     }
 
+    getEmail() {
+        return localStorage.getItem('email');
+    }
+
+    saveEmail(email) {
+        return localStorage.setItem('email', email);
+    }
+
     register(email, password, success, error) {
         this.client.get('register/'+email+'/'+password, {}, (err, response) => {
             if (err) {
                 return error(err);
             }
             this.saveToken(response.data._code);
+            this.saveEmail(response.data.email);
             if(response.data.status == 0)
                 success(response);
             else if (response.data.status == 2)
