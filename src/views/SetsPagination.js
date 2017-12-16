@@ -10,6 +10,11 @@ export default class SetsPagination extends React.Component {
     else return '';
   }
 
+  checkNext() {
+    if(this.props.activePageNum === this.props.length) return 'disabled';
+    else return '';
+  }
+
   render() {
     const totalPages = this.props.length;
     const pageNumArr = [];
@@ -27,7 +32,7 @@ export default class SetsPagination extends React.Component {
             {pageNumArr.map((page, idx) =>
               <PageNumber key={idx} pageIndex={page} onPageClick={this.props.onPageClick} activePageNum={this.props.activePageNum} />
               )}
-            <PaginationItem>
+            <PaginationItem className={this.checkNext()}>
               <PaginationLink next href="#" />
             </PaginationItem>
           </Pagination>
