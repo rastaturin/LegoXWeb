@@ -51,7 +51,7 @@ class ApiClient {
             if (err) {
                 return error(err);
             }
-            this.saveToken(response.data.code);
+            this.saveToken(response.data._code);
             if(response.data.status == 0)
                 success(response);
             else
@@ -128,7 +128,7 @@ class ApiClient {
             if (err) {
                 return error(err);
             }
-            this.saveToken(response.data.code);
+            this.saveToken(response.data._code);
             if(response.data.status == 0)
                 success(response);
             else if (response.data.status == 2)
