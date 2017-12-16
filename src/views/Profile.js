@@ -42,22 +42,21 @@ export default class Profile extends Component {
       dots: true,
       infinite: true,
       speed: 500,
-      slidesToShow: 2,
+      slidesToShow: 1,
       slidesToScroll: 1,
       prevArrow: <PrevArrow pos="left" onClick={this.previous} />,
       nextArrow: <PrevArrow pos="right" onClick={this.next} />,
       responsive: [ { breakpoint: 768, settings: { slidesToShow: 1 } } ],
-      centerMode: true,
       className: 'robot-face'
     };
 
     return (
-      <div className="container profile-view">
+      <div className="container-fluid profile-view">
         <Jumbo title={'Your Profile'} text={'Enter your data.'}/>
         <Slider ref={c => this.slider = c } {...settings}>
-          <div><img src={face01} alt="Deafult Pic" /></div>
-          <div><img src={face02} alt="Deafult Pic" /></div>
-          <div><img src={face03} alt="Deafult Pic" /></div>
+          <div><img src={face01} alt="Deafult Pic" className="avatar" /></div>
+          <div><img src={face02} alt="Deafult Pic" className="avatar" /></div>
+          <div><img src={face03} alt="Deafult Pic" className="avatar" /></div>
         </Slider>
         <Form className="profile-form">
           <FormGroup>

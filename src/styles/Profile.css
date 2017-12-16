@@ -1,10 +1,15 @@
 .profile-view {
-  margin-top: 50px;
+  padding: 0;
 }
 
 .robot-face {
   margin: 0 auto;
-  width: 300px;
+  width: 230px;
+  text-align: center;
+}
+
+.avatar {
+  padding-left: 50px;
 }
 
 .profile-form {
@@ -22,6 +27,7 @@
   border-right: .4rem solid black;
   box-shadow: 0 0 0 lightgray;
   transition: all 200ms ease;
+  z-index: 20;
 }
 
 .arrow.left {
