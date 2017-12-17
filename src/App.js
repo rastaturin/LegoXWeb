@@ -173,7 +173,7 @@ class Logout extends Component {
             )
         }
 
-        return (<a href={'/login'} className={"nav-link"}>Logout</a>);
+        return (<a href={'/login'} className={"nav-link"}>Login</a>);
     }
 }
 
@@ -190,6 +190,7 @@ class LoginPage extends Component {
         const self = this;
         getClient().login(this.state.email, this.state.password, function(result) {
             self.setState({msg: 'Login successfully'});
+            window.location.href = '/profile';
         }, function(error) {
             self.setState({msg: 'Login failed'});
         })
