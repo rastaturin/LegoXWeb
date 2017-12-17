@@ -1,3 +1,4 @@
 {
-  "api_host": "https://oah0sgb7n7.execute-api.us-west-1.amazonaws.com/api/"
+  "api_host": "https://oah0sgb7n7.execute-api.us-west-1.amazonaws.com/api/",
+  "api_fred": "https://2rtzcdhye0.execute-api.us-west-1.amazonaws.com/api/"
 }

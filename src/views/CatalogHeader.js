@@ -7,7 +7,7 @@ export default class CatalogHeader extends Component {
       <div className="row">
         <div className="col-lg-12 catalogBanner">
           <h1 className="display-3 catalogTitle">{this.props.title}</h1>
-          <p>{this.props.text}</p>
+          <p className="catalogSubTitle">{this.props.text}</p>
         </div>
       </div>
     )

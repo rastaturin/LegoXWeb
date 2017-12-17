@@ -19,6 +19,8 @@
   "devDependencies": {
     "axios": "^0.17.1",
     "classnames": "^2.2.5",
-    "react-jss": "^8.1.0"
+    "react-jss": "^8.1.0",
+    "react-slick": "^0.16.0",
+    "slick-carousel": "^1.8.1"
   }
 }

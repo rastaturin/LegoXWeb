@@ -1,3 +1,7 @@
 .pagers {
   margin: 15px;
 }
+
+li:hover {
+  cursor: no-drop;
+}

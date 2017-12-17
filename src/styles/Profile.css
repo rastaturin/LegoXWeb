@@ -1,0 +1,55 @@
+.profile-view {
+  padding: 0;
+}
+
+.robot-face {
+  margin: 0 auto;
+  width: 230px;
+  text-align: center;
+}
+
+.avatar {
+  padding-left: 50px;
+}
+
+.profile-form {
+  margin: 0 auto;
+  width: 390px;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border-top: .4rem solid black;
+  border-right: .4rem solid black;
+  box-shadow: 0 0 0 lightgray;
+  transition: all 200ms ease;
+  z-index: 20;
+}
+
+.arrow.left {
+  left: 0;
+  transform: translate3d(0,-50%,0) rotate(-135deg);
+}
+
+.arrow.right {
+  right: 0;
+  transform: translate3d(0,-50%,0) rotate(45deg);
+}
+
+.arrow:hover {
+  border-top: .4rem solid orange;
+  border-right: .4rem solid orange;
+  box-shadow: .2rem -.2rem 0 black;
+}
+
+.arrow:hover.left {
+  left: -.2rem;
+}
+
+.arrow:hover.right {
+  right: -.2rem;
+}

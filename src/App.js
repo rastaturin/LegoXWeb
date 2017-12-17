@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Button, Form, FormGroup, Input, InputGroup, InputGroupAddon, InputGroupButton, Label, Row, Table } from 'reactstrap';
-import {Route, BrowserRouter as Router} from "react-router-dom";
+import { Route,
+         Switch,
+         BrowserRouter as Router } from "react-router-dom";
 import Catalog from './views/Catalog';
 import LegoSet from './views/LegoSet';
+import SetSale from './views/SetSale';
 import Themes from './views/Themes';
 import Jumbo from './views/Jumbo';
+import Profile from './views/Profile';
+import Navigation from './views/Navigation';
+import Footer from './views/Footer';
+import NoMatch from './views/404';
 
 const config = require('./config');
 const ApiClient = require('./ApiClient');
@@ -14,7 +21,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state={
-            email:'',
+            email:''
         };
         console.log(this.state);
     }
@@ -28,22 +35,27 @@ class App extends Component {
   }
 
   render() {
+
     return (
-      <div className="App">
-          <div>
+      <div>
               <Router>
-                  <div>
+                <div>
+                  <Navigation />
+
+                  <Switch>
                       <Route path="/login/:key" component={LoginSession}/>
                       <Route path="/login" exact component={LoginPage}/>
                       <Route path="/dashboard" component={DashboardPage}/>
-                      <Route path="/profile" component={ProfilePage}/>
+                      <Route path="/profile" component={Profile}/>
                       <Route path="/mysets" component={MySets}/>
                       <Route path="/set/:key" component={SetSale}/>
                       <Route path="/" exact component={Catalog}/>
-                  </div>
+                      <Route component={NoMatch} />
+                    </Switch>
+                  <Footer />
+
+                </div>
               </Router>
-              {/*<Pages/>*/}
-          </div>
       </div>
     );
   }
@@ -60,47 +72,6 @@ class Home extends Component {
         return (
             <div>
                 <h2>Home</h2>
-            </div>
-        )
-    }
-}
-
-class SetSale extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            set: {
-                sales:[]
-            }
-        };
-
-        getClient().getSet(this.props.match.params.key, (result) => {
-            this.setState({'set': result.set});
-            console.log(result);
-        })
-    }
-
-    render() {
-        return (
-            <div>
-                <Jumbo title={this.state.set.name} text={'ID: ' + this.props.match.params.key}/>
-                <img src={this.state.set.img}/>
-                <h2>Sales</h2>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.set.sales.map(function(d, idx){
-                        return (<tr><td>{d.user}</td><td>${d.price}</td></tr>)
-                    })}
-                    </tbody>
-                </Table>
-
             </div>
         )
     }
@@ -174,42 +145,6 @@ class DashboardPage extends Component {
     }
 }
 
-class ProfilePage extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            email:'',
-        };
-    }
-
-    render() {
-        return (
-            <div>
-                <Jumbo title={'Your Profile'} text={'Enter your data.'}/>
-                <Row>
-                <Form>
-                    <FormGroup>
-                        <Label for="name">Email</Label>
-                        <Input name="name" id="name" placeholder="Name" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Birthday">Birthday</Label>
-                        <Input name="Birthday" id="Birthday" placeholder="Birthday" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Address">Address</Label>
-                        <Input name="Address" id="Address" placeholder="Address" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Button >Submit</Button>
-                    </FormGroup>
-                </Form>
-                </Row>
-            </div>
-        )
-    }
-}
-
 class LoginSession extends Component {
     constructor(props){
         super(props);
@@ -227,17 +162,18 @@ class LoginSession extends Component {
 class Logout extends Component {
     logout() {
         getClient().saveToken('');
+        getClient().saveEmail('');
         window.location.href = '/';
     }
 
     render() {
-        if (getClient().getToken()) {
+        if (getClient().getToken() != undefined && getClient().getToken() != '') {
             return (
                 <Button onClick={this.logout}>Logout</Button>
             )
         }
 
-        return (<a href={'/login'} className={"nav-link"}>Logout</a>);
+        return (<a href={'/login'} className={"nav-link"}>Login</a>);
     }
 }
 
@@ -252,40 +188,68 @@ class LoginPage extends Component {
 
     getStarted() {
         const self = this;
-        getClient().login(this.state.email, function(result) {
-            self.setState({msg: 'Login link has been sent to your email.'});
+        getClient().login(this.state.email, this.state.password, function(result) {
+            self.setState({msg: 'Login successfully'});
+            window.location.href = '/profile';
         }, function(error) {
-            self.setState({msg: error});
+            self.setState({msg: 'Login failed'});
+        })
+    }
+
+    getRegistered() {
+        const self = this;
+        getClient().register(this.state.email, this.state.password, function (result) {
+            self.setState({msg: 'Register successfully'});
+        }, function(error) {
+            self.setState({msg: 'Register failed'});
         })
     }
 
     render() {
         return (
-            <div className="container">
-                <Jumbo title={'Welcome to Lego Exchanger!'} text={'Please login using your email address.'}/>
-
-                <Row>
-                <h3 className="display-4">
-                    Enter your email
-                </h3>
-            </Row>
-                <Row>
-                <p>
-                    Login link will be sent to your email.
-                </p>
-            </Row>
-            <Row>
-                <Form>
-                    <FormGroup>
-                        <InputGroup>
-                            <Input placeholder="Enter Email" onChange={event => this.setState({email: event.target.value})} />
-                            <InputGroupButton><Button color="secondary" onClick={event => this.getStarted(event)}>Get login link</Button></InputGroupButton>
-                        </InputGroup>
-                    </FormGroup>
-                </Form>
-            </Row>
-                <p>{this.state.msg}</p>
-            </div>
+            <div>
+                <div>
+                    <Jumbo title={'Welcome to Lego Exchanger!'} text={'Please login using your email address.'}/>
+                </div>
+                <div className="container">
+                    <Row>
+                        <div className="col-lg" />
+                        <div className="col-lg">
+                            <h3 className="display-4">
+                                LOGIN
+                            </h3>
+                        </div>
+                        <div className="col-lg" />
+                    </Row>
+                    <Row>
+                        <div className="col-lg" />
+                        <div className="col-lg">
+                            <Form>
+                                <FormGroup>
+                                    <InputGroup>
+                                        <span className="input-group-addon">Email</span>
+                                        <Input placeholder="Enter Email" onChange={event => this.setState({email: event.target.value})} />
+                                    </InputGroup>
+                                </FormGroup>
+                                <FormGroup>
+                                    <InputGroup>
+                                        <span className="input-group-addon">Password</span>
+                                        <Input placeholder="Enter Password" onChange={event => this.setState({password: event.target.value})} />
+                                    </InputGroup>
+                                </FormGroup>
+                                <FormGroup>
+                                    <div className="btn-group">
+                                        <Button color="primary" onClick={event => this.getStarted(event)}>Login</Button>
+                                        <Button color="success" onClick={event => this.getRegistered(event)}>Register</Button>
+                                    </div>
+                                </FormGroup>
+                            </Form>
+                        </div>
+                        <div className="col-lg" />
+                    </Row>
+                    <p>{this.state.msg}</p>
+                </div>
+                </div>
         );
     }
 }
@@ -362,7 +326,7 @@ class MySets extends Component {
  * @returns {ApiClient}
  */
 function getClient() {
-    const apiBaseUrl = config.api_host;
+    const apiBaseUrl = config.api_fred;
     return new ApiClient(apiBaseUrl, errorHandler);
 }
 

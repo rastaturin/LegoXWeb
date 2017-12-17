@@ -1,0 +1,18 @@
+.jumboLayout {
+  background-image: url("../images/set-sale-banner.jpeg");
+  opacity: 0.8;
+  border-radius: 0.3rem;
+  margin-bottom: 2rem;
+  margin-top: 55px;
+  padding: 25px 18px;
+}
+
+.jumboTitle {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: bold;
+  padding: 0px 95px;
+}
+
+.jumboSubTitle {
+  padding: 5px 100px;
+}

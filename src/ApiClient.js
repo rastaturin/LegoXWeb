@@ -46,14 +46,17 @@ class ApiClient {
         this.errorHandler = errorHandler;
     }
 
-    login(email, success, error) {
-        this.client.get('login/'+email, {}, (err, response) => {
+    login(email, password, success, error) {
+        this.client.get('login/'+email+'/'+password, {}, (err, response) => {
             if (err) {
                 return error(err);
             }
-
-            this.saveToken(response.data.code);
-            success(response);
+            this.saveToken(response.data._code);
+            this.saveEmail(response.data.email);
+            if(response.data.status == 0)
+                success(response);
+            else
+                error(response);
         });
     }
 
@@ -121,6 +124,29 @@ class ApiClient {
         return localStorage.setItem('token', token);
     }
 
+    getEmail() {
+        return localStorage.getItem('email');
+    }
+
+    saveEmail(email) {
+        return localStorage.setItem('email', email);
+    }
+
+    register(email, password, success, error) {
+        this.client.get('register/'+email+'/'+password, {}, (err, response) => {
+            if (err) {
+                return error(err);
+            }
+            this.saveToken(response.data._code);
+            this.saveEmail(response.data.email);
+            if(response.data.status == 0)
+                success(response);
+            else if (response.data.status == 2)
+                success(response);
+            else
+                error(response);
+        });
+    }
 }
 
 module.exports = ApiClient;

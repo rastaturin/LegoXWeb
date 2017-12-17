@@ -1,11 +1,29 @@
 .catalogBanner {
-  background-color: #e9ecef;
+  background-image: url("../images/lego-brick-banner.jpeg");
+  opacity: 0.9;
   border-radius: 0.3rem;
   margin-bottom: 2rem;
+  margin-top: 55px;
   padding: 25px 18px;
 }
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .catalogBanner {
+    padding: 0px 30px;
+  }
+  .catalogTitle {
+    padding: 0px;
+  }
+}
+
 
 .catalogTitle {
   font-family: 'Titillium Web', sans-serif;
   font-weight: bold;
+  padding: 0px 95px;
+}
+
+.catalogSubTitle {
+  padding: 5px 100px;
 }
